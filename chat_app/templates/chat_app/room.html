@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
+<textarea id="chat-log" cols="100" rows="20"></textarea><br/>
+<input id="chat-message-input" type="text" size="100"/><br/>
+<input id="chat-message-submit" type="button" value="Send"/>
 </body>
 <script>
     var roomName = {{ room_name_json }};
@@ -16,13 +18,21 @@
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/ws/chat/' + roomName + '/');
+    {#'/ws/chat/' + roomName + '/' + userName);#}
 
+
+    // 채팅내용 올리는 섹션
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        var username = data['username'];
+        document.querySelector('#chat-log').value += (
+            '<p>' + username + ':' + message + '\n' + '</p>'
+        );
     };
 
+
+    // disconnect 되었을때 콘솔내용
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
@@ -37,8 +47,12 @@
     document.querySelector('#chat-message-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
+        var userName = '{{ request.user }}';
+
+
         chatSocket.send(JSON.stringify({
-            'message': message
+            'message': message,
+            'userName':userName,
         }));
 
         messageInputDom.value = '';

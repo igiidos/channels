@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필</title>
+</head>
+<body>
+프로필
+
+hello {{ request.user }}!!!
+
+<a href="{% url 'index' %}">채팅하기</a>
+<a href="{% url 'logout' %}">로그아웃</a>
+
+
+</body>
+</html>
