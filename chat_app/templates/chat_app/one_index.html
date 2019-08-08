@@ -7,7 +7,7 @@
 </head>
 <body>
 <a href="{% url 'logout' %}">로그아웃</a>
-Openroom Name<br/>
+1:1room Name<br/>
 <input id="room-name-input" type="text" size="100"/><br/>
 <input id="room-name-submit" type="button" value="Enter"/>
 
@@ -23,7 +23,7 @@ Openroom Name<br/>
 
     document.querySelector('#room-name-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name-input').value;
-        window.location.pathname = '/chat/' + roomName + '/';
+        window.location.pathname = '/chat/' + roomName + '/2/';
     };
 </script>
 
