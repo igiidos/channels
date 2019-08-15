@@ -1,1 +1,1 @@
-web: gunicorn chefhome_project.wsgi
+web: gunicorn subway_channels.wsgi
