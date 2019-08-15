@@ -1,3 +1,1 @@
-django==2.2.3
-channels
-channels_redis
+-r required/production.txt
