@@ -73,6 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'subway_channels.wsgi.application'
 
 ASGI_APPLICATION = "subway_channels.routing.application"
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
